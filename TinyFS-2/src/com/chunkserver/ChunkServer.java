@@ -39,13 +39,43 @@ public class ChunkServer implements ChunkServerInterface {
 	}
 	
 	/**
-	 * Write the byte array to the chunk at the specified offset
+	 * Write the byte array to the chunk at the specified offset at provided payload
 	 * The byte array size should be no greater than 4KB
 	 */
 	public boolean writeChunk(String ChunkHandle, byte[] payload, int offset) {
-		System.out.println("writeChunk invoked:  Part 1 of TinyFS must implement the body of this method.");
-		System.out.println("Returns false for now.\n");
-		return false;
+		
+		//Use a Random Access File; Create if Non-Existent
+		//https://docs.oracle.com/javase/8/docs/api/java/io/RandomAccessFile.html
+		try {
+			//Use RW mode for Read / Write
+			RandomAccessFile raf = new RandomAccessFile(filePath + ChunkHandle, "rw");
+			
+			/* SPECIFIED OFFSET
+			 * seek(long pos) 
+			 * Sets the file-pointer offset, 
+			 * measured from the beginning of this file, 
+			 * at which the next read or write occurs.
+			 */
+			raf.seek(offset);
+			
+			/*
+			 * write(byte[] b, int off, int len)
+			 * Writes length bytes from the specified byte array starting at offset off to this file.
+			 * Note: Use offset zero in function because of Seek function previously used
+			 */
+			raf.write(payload, 0, payload.length);
+			
+			/*
+			 * Close the Random Access File stream after writing.
+			 */
+			raf.close();
+		
+			return true;
+		} catch (IOException ioe){
+		
+			ioe.printStackTrace();
+			return false;
+		}
 	}
 	
 	/**
