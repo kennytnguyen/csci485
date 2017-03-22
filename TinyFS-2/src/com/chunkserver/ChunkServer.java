@@ -29,6 +29,13 @@ public class ChunkServer implements ChunkServerInterface {
 	public ChunkServer(){
 		System.out.println("Constructor of ChunkServer is invoked:  Part 1 of TinyFS must implement the body of this method.");
 		System.out.println("It does nothing for now.\n");
+		
+		/*
+		 * Open the FilePath Directory
+		 * Create an Accessible File Array using the Directory
+		 * 
+		 * Do Something
+		 */
 	}
 	
 	/**
@@ -86,7 +93,6 @@ public class ChunkServer implements ChunkServerInterface {
 	 */
 	public byte[] readChunk(String ChunkHandle, int offset, int NumberOfBytes) {
 		
-		//readFully or read
 		/* ADVICE
 		 ***Treat a chunk as an array of bytes per in-class lectures/discussions
 		 */
@@ -103,7 +109,8 @@ public class ChunkServer implements ChunkServerInterface {
 				RandomAccessFile raf = new RandomAccessFile(filePath + ChunkHandle, "rw");
 				raf.seek(offset);
 				
-				/*
+				/* readFully or read
+				 * 
 				 * read(byte[] b, int off, int len)
 				 * Reads up to len bytes of data from this file into an array of bytes.
 				 */
