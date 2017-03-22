@@ -17,6 +17,9 @@ import com.interfaces.ChunkServerInterface;
  */
 
 public class ChunkServer implements ChunkServerInterface {
+	/*
+	 * filePath the directory in which multiple chunks can be created/stored?
+	 */
 	final static String filePath = "/Users/Kenny/Desktop/Repositories/csci485";	//or C:\\newfile.txt
 	public static long counter;
 	
@@ -82,9 +85,39 @@ public class ChunkServer implements ChunkServerInterface {
 	 * read the chunk at the specific offset
 	 */
 	public byte[] readChunk(String ChunkHandle, int offset, int NumberOfBytes) {
-		System.out.println("readChunk invoked:  Part 1 of TinyFS must implement the body of this method.");
-		System.out.println("Returns null for now.\n");
-		return null;
+		
+		//readFully or read
+		/* ADVICE
+		 ***Treat a chunk as an array of bytes per in-class lectures/discussions
+		 */
+		try {
+			/* Base Case
+			 * if a File doesn't exist then we cannot read; return null.
+			 * else read file
+			 */
+			if (new File(filePath + ChunkHandle).exists() == false) {
+				return null;
+			} else {
+				byte[] byteArray = new byte[NumberOfBytes];
+			
+				RandomAccessFile raf = new RandomAccessFile(filePath + ChunkHandle, "rw");
+				raf.seek(offset);
+				
+				/*
+				 * read(byte[] b, int off, int len)
+				 * Reads up to len bytes of data from this file into an array of bytes.
+				 */
+				raf.read(byteArray, 0, NumberOfBytes);
+				raf.close();
+				
+				return byteArray;
+			}
+			//return "Array of Bytes"
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return null;
+			
+		}
 	}
 	
 	
