@@ -21,21 +21,21 @@ public class ChunkServer implements ChunkServerInterface {
 	 * filePath the directory in which multiple chunks can be created/stored?
 	 */
 	final static String filePath = "/Users/Kenny/Desktop/Repositories/csci485";	//or C:\\newfile.txt
+	
+	//Use this counter to keep track of Chunks.
 	public static long counter;
 	
 	/**
 	 * Initialize the chunk server
 	 */
 	public ChunkServer(){
+		/*
+		 * My Unit Tests seemed to have passed.
+		 * 
 		System.out.println("Constructor of ChunkServer is invoked:  Part 1 of TinyFS must implement the body of this method.");
 		System.out.println("It does nothing for now.\n");
-		
-		/*
-		 * Open the FilePath Directory
-		 * Create an Accessible File Array using the Directory
-		 * 
-		 * Do Something
-		 */
+		 *
+		*/
 	}
 	
 	/**
@@ -43,9 +43,14 @@ public class ChunkServer implements ChunkServerInterface {
 	 * Return the chunk handle of the last chunk in the file.
 	 */
 	public String createChunk() {
-		System.out.println("createChunk invoked:  Part 1 of TinyFS must implement the body of this method.");
-		System.out.println("Returns null for now.\n");
-		return null;
+		//Iterate for a chunk; return the number of chunks
+		counter++;
+		
+		/*
+		 * Return a string of a number.
+		 * http://stackoverflow.com/questions/3930210/java-int-to-string-integer-tostringi-vs-new-integeri-tostring
+		 */
+		return String.valueOf(counter);
 	}
 	
 	/**
@@ -94,7 +99,7 @@ public class ChunkServer implements ChunkServerInterface {
 	public byte[] readChunk(String ChunkHandle, int offset, int NumberOfBytes) {
 		
 		/* ADVICE
-		 ***Treat a chunk as an array of bytes per in-class lectures/discussions
+		 * Treat a chunk as an array of bytes per in-class lectures/discussions
 		 */
 		try {
 			/* Base Case
