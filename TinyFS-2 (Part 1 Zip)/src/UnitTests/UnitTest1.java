@@ -24,14 +24,18 @@ public class UnitTest1 {
 	
 	public static void test1(){
 		//Write the chunk and the byte array
-		byte[] payload = new byte[ChunkServer.ChunkSize];
+		byte[] payload = new byte[ChunkServer.ChunkSize]; //4KB
+		
+		// Payload stores numbers
+		
 		int intSize = Integer.SIZE / Byte.SIZE;	// 4 bytes
 		int num = ChunkServer.ChunkSize / intSize;	//1024 integers
 		byte[] ValInBytes = ByteBuffer.allocate(intSize).putInt(1).array();
+		//Allocates 4 bytes and put number 1;
         for (int j=0; j < num; j++){
             for (int k=0; k < intSize; k++)
                 payload[(j * intSize)+k] = ValInBytes[k];
-        }
+        } //Loops through the payload to the ValInBytes 
         boolean isSuccess = false;
         //Create the chunk and store its handle
         Client client = new Client();

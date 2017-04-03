@@ -13,7 +13,7 @@ import com.interfaces.ChunkServerInterface;
 /**
  * implementation of interfaces at the chunkserver side
  * @author Shahram Ghandeharizadeh
- *
+ * @student Kenny Nguyen
  */
 
 public class ChunkServer implements ChunkServerInterface {
@@ -30,12 +30,25 @@ public class ChunkServer implements ChunkServerInterface {
 	 */
 	public ChunkServer(){
 		/*
-		 * My Unit Tests seemed to have passed.
-		 * 
+		 * File System Array to store individual files & chunks
 		System.out.println("Constructor of ChunkServer is invoked:  Part 1 of TinyFS must implement the body of this method.");
 		System.out.println("It does nothing for now.\n");
 		 *
+		 *
 		*/
+		File dir = new File(filePath);
+		File[] fs = dir.listFiles();
+
+		if(fs.length == 0){
+			counter = 0;
+		}else{
+			long[] cntrs = new long[fs.length];
+			for (int j=0; j < cntrs.length; j++)
+				cntrs[j] = Long.valueOf( fs[j].getName() ); 
+			
+			Arrays.sort(cntrs);
+			counter = cntrs[cntrs.length - 1];
+		}
 	}
 	
 	/**
@@ -47,6 +60,8 @@ public class ChunkServer implements ChunkServerInterface {
 		counter++;
 		
 		/*
+		 * Create Chunk Unique -- Client asks the chunk to r/w; 
+		 * should return a chunk if the client needs it
 		 * Return a string of a number.
 		 * http://stackoverflow.com/questions/3930210/java-int-to-string-integer-tostringi-vs-new-integeri-tostring
 		 */
